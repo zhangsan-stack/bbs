@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gem.bbs.mapper.ProblemMapper">
+    <resultMap id="baseResultMap" type="com.gem.bbs.entity.Problem">
+        <id column="id" jdbcType="INTEGER" property="id"></id>
+        <result column="firsttitle" jdbcType="VARCHAR" property="firsttitle" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="coin" jdbcType="INTEGER" property="coin" />
+        <result column="userid" jdbcType="INTEGER" property="userid" />
+        <result column="isup" jdbcType="CHAR" property="isup"/>
+        <result column="createtime" jdbcType="DATE" property="createtime" />
+    </resultMap>
+
+    <insert id="insert"  parameterType="com.gem.bbs.entity.Problem">
+        insert into problem(id, firsttitle , description, coin, userid, isup,createtime)
+        values (null,#{firsttitle}, #{description}, #{coin}, #{userid}, #{isup}, #{createtime})
+    </insert>
+
+  <!--  查询符合条件的集合,不分页查询，懒-->
+    <select id="selectAll"  parameterType="com.gem.bbs.entity.Problem" resultMap="baseResultMap">
+        select * from problem  where firsttitle like '%${firsttitle}%'
+    </select>
+
+    <!--查询符合条件的记录总数-->
+    <select id="getTotal" parameterType="Integer">
+        select count(*) from problem
+        where firsttitle like '%${firsttitle}%'
+    </select>
+
+
+</mapper>

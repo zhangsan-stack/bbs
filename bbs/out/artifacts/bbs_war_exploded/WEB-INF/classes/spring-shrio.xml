@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 第四步 -->
+    <!-- 配置密码匹配器-->
+   <!-- <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="MD5"/>
+        <property name="hashIterations" value="1"/>
+        &lt;!&ndash; 设置成false，表示用base64加密，默认是true，加密方式为hex&ndash;&gt;
+        <property name="storedCredentialsHexEncoded" value="false"/>
+    </bean>-->
+
+    <!-- 第三步 -->
+    <!-- 配置realm-->
+   <!-- <bean id="realm" class="com.gem.bbs.shiro.UserRealm">
+
+        <property name="dataSource" ref="dataSource"/>
+
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+
+        <property name="authenticationQuery">
+            <value>
+                select password,login_name from t_user where login_name=?
+            </value>
+        </property>
+    </bean>-->
+
+
+    <bean id="UserRealm" class="com.gem.bbs.shiro.UserRealm"></bean>
+
+    <!-- 第二步 -->
+    <!-- 配置-securityManager -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realms" ref="UserRealm">
+
+        </property>
+    </bean>
+
+    <!-- 第一步 -->
+    <!-- 定义一个名为shiroFilter的bean，用来配置url过滤规则-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 认证地址-->
+        <property name="loginUrl" value="/user/login"></property>
+        <!--登录成功后返回的地址-->
+        <property name="successUrl" value="/index2"></property>
+        <property name="unauthorizedUrl" value="/refuse.jsp"></property>
+        <!-- 可以匿名访问 -->
+        <!-- 拦截过滤界面-->
+        <property name="filterChainDefinitions">
+            <value>
+                <!--退出拦截 -->
+                /index = anon
+                /user/login = anon
+
+                <!--对于静态资源的访问 -->
+                /js/**     = anon
+                /img/**    = anon
+                /css/**    = anon
+                /assets/** = anon
+                /styles/** anon
+                <!--首页自动放心，无需拦截 -->
+                /** = authc
+                <!-- -->
+                <!--其他路经都需要认证 -->
+            </value>
+        </property>
+
+    </bean>
+<!--
+    <bean id="formAuthenticationFilter" class="com.gem.bbs.shiro.abc">
+        <property name="usernameParam" value="username" />
+        <property name="passwordParam" value="password" />
+    </bean>-->
+
+
+</beans>
