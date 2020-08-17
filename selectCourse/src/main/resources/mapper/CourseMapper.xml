@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.select.mapper.CourseMapper">
+   <!-- <resultMap id="CourseMap" type="com.select.entity.Course">
+        <id column="id" jdbcType="INTEGER" property="id"></id>
+        <result column="password" jdbcType="VARCHAR" property="password"></result>
+    </resultMap>-->
+
+    <insert id="insertCourse" parameterType="com.select.entity.Course">
+       insert into course (id,name, time,credit,belong,place,amount,detail,selected)
+       values(#{id},#{name},#{time},#{credit},#{belong},#{place},#{amount},#{detail},#{selected})
+
+    </insert>
+
+
+    <select id="selectCourseById" parameterType="Integer" resultType="com.select.entity.Course">
+      select * from course where id =#{id}
+
+    </select>
+
+    <update id="updateCourse" parameterType="com.select.entity.Course" >
+        update  course
+        set name =#{name}, time =#{time}, credit=#{credit}, belong =#{belong},place=#{place},
+            amount= #{amount}, detail=#{detail},selected=#{selected}
+        where id =#{id}
+    </update>
+
+    <!--查询所有-->
+    <select id="getAllCourses" resultType="com.select.entity.Course">
+        select * from course;
+    </select>
+
+    <!--分页查询-->
+    <select id="getPageAllCourses" resultType="com.select.entity.Course">
+        select * from course limit #{pageNo},#{rows}
+
+    </select>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete from course where id=#{id}
+    </delete>
+
+
+</mapper>

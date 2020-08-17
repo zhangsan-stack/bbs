@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.select.mapper.StudyMapper">
+    <resultMap id="BaseMap" type="com.select.entity.Study">
+        <id column="id" jdbcType="INTEGER" property="id"></id>
+        <result column="s_id" jdbcType="INTEGER" property="s_id"></result>
+        <result column="s_name" jdbcType="VARCHAR" property="s_name"></result>
+        <result column="s_major" jdbcType="VARCHAR" property="s_major"></result>
+        <result column="c_id" jdbcType="INTEGER" property="c_id"></result>
+        <result column="c_name" jdbcType="VARCHAR" property="c_name"></result>
+        <result column="c_belong" jdbcType="VARCHAR" property="c_belong"></result>
+        <result column="c_credit" jdbcType="INTEGER" property="c_credit"></result>
+        <result column="c_time" jdbcType="VARCHAR" property="c_time"></result>
+
+    </resultMap>
+
+
+   <!-- 根据课程id和学生id，来查是否有这样的一跳数据，来判断这个学生是否已经选了该课程-->
+    <select id="check" parameterType="Integer" resultType="com.select.entity.Study">
+        select * from study where s_id=#{s_id} and c_id=#{c_id}
+    </select>
+
+    <insert id="insertStudy" parameterType="com.select.entity.Study" >
+        insert into  study (id,s_id,s_name,s_major, c_id,c_name,c_belong,c_credit,c_time)
+
+        values(#{id}, #{s_id}, #{s_name}, #{s_major},
+              #{c_id}, #{c_name}, #{c_belong}, #{c_credit},#{c_time})
+
+    </insert>
+
+    <select id="selectAllStudyBy_c_id" parameterType="Integer" resultMap="BaseMap">
+        select * from study where c_id=#{c_id}
+
+    </select>
+    <select id="selectStudiesBy_s_id" parameterType="Integer" resultMap="BaseMap">
+      select * from study where s_id=#{s_id}
+
+    </select>
+
+
+
+
+</mapper>
