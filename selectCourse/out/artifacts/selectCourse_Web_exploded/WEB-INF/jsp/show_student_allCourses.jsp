@@ -49,7 +49,7 @@ this is show_student_allCourses.jsp
         <td><%=s.getC_belong()%></td>
         <td><%=s.getC_credit()%></td>
         <td><%=s.getC_time()%></td>
-
+        <td><a href="/study/deleteStudyBy_s_id_c_id?s_id=<%=s.getS_id()%>&c_id=<%=s.getC_id()%>">删除</a></td>
     </tbody>
     <%
         }

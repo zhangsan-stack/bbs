@@ -38,6 +38,10 @@
 
     </select>
 
+    <delete id="deleteStudyBy_s_id_c_id" parameterType="Integer" >
+      delete from study where s_id=#{s_id} and  c_id = #{c_id}
+
+    </delete>
 
 
 

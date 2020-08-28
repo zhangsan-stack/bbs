@@ -14,4 +14,7 @@ public interface StudyMapper {
 	List<Study> selectAllStudyBy_c_id(@Param("c_id") Integer c_id);
 
 	List<Study> selectStudiesBy_s_id(@Param("s_id") Integer s_id);
+
+
+	void deleteStudyBy_s_id_c_id(@Param("s_id") Integer s_id, @Param("c_id") Integer c_id);
 }

@@ -27,4 +27,9 @@ public class StudyServiceImpl implements StudyService {
 	public List<Study> selectStudiesBy_s_id(Integer s_id) {
 		return studyMapper.selectStudiesBy_s_id(s_id);
 	}
+
+	@Override
+	public void deleteStudyBy_s_id_c_id(Integer s_id, Integer c_id) {
+		studyMapper.deleteStudyBy_s_id_c_id(s_id, c_id);
+	}
 }
